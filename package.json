@@ -2,9 +2,9 @@
   "name": "@azlabsjs/rx-hook-decorators",
   "version": "0.1.2",
   "description": "Provides decorators for ES6 compatible classes for rx-hooks library ",
-  "main": "./dist/cjs/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/esm/index.mjs",
   "typings": "./dist/types/index.d.ts",
-  "module": "./dist/esm/index.js",
   "files": [
     "dist/**/*"
   ],
@@ -23,9 +23,9 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/cjs/index.js"
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs"
     }
   },
   "keywords": [

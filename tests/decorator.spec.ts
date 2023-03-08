@@ -10,13 +10,12 @@ import {
 } from 'rxjs';
 import {
   Reducer,
+  State,
   DispatchType,
   ReducerComponentType,
   StateComponentType,
   SetStateType,
-  State,
 } from '../src';
-
 
 type StateType = {
   articles: unknown[];
