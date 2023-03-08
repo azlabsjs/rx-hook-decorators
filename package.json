@@ -1,6 +1,6 @@
 {
   "name": "@azlabsjs/rx-hook-decorators",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Provides decorators for ES6 compatible classes for rx-hooks library ",
   "main": "./dist/index.mjs",
   "typings": "./dist/types/index.d.ts",
