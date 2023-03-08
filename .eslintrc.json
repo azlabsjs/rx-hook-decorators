@@ -1,13 +1,21 @@
 {
   "root": true,
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["standard-with-typescript", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "overrides": [],
+  "plugins": ["@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["./tsconfig.json"]
+    "project": ["./tsconfig.json"],
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
   "rules": {
+    "no-implicit-coercion": 1,
     "@typescript-eslint/no-explicit-any": 0
   },
-  "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
+  "ignorePatterns": ["tests/**/*.spec.ts", "tests/**/*.test.ts"]
 }

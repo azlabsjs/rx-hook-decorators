@@ -32,8 +32,8 @@ jobs:
         with:
           useLockFile: false
 
-      # - name: Lint
-      #   run: npm run lint
+      - name: Lint
+        run: npm run lint
 
       - name: Test
         run: npm test

@@ -4,7 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
-import babel , { getBabelOutputPlugin } from '@rollup/plugin-babel';
+import babel from '@rollup/plugin-babel';
 
 // this override is needed because Module format cjs does not support top-level await
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -45,7 +45,7 @@ export default {
             ignoreGlobal: true,
         }),
         babel({babelHelpers: 'bundled'}),
-        // terser(),
+        terser(),
 
     ],
     external: Object.keys(globals),
