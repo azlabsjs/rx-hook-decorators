@@ -1,9 +1,10 @@
 {
   "name": "@azlabsjs/rx-hook-decorators",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Provides decorators for ES6 compatible classes for rx-hooks library ",
-  "main": "./dist/index.js",
-  "typings": "dist/types/index.d.ts",
+  "main": "./dist/index.mjs",
+  "typings": "./dist/types/index.d.ts",
+  "module": "./dist/index.mjs",
   "files": [
     "dist/**/*"
   ],
@@ -13,10 +14,16 @@
   "scripts": {
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
+    "build": "rimraf ./dist && npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline",
+    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline --out-file-extension '.mjs'",
     "test": "jest"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
+    }
   },
   "keywords": [
     "ES6",
@@ -47,5 +54,17 @@
     "ts-jest": "^29.0.5",
     "ts-lib": "^0.0.5",
     "typescript": "^4.9.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@azlabsjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azlabsjs/rx-hook-decorators"
   }
 }
