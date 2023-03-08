@@ -15,7 +15,7 @@ import {
   StateComponentType,
   SetStateType,
   State,
-} from '../dist';
+} from '../src';
 
 
 type StateType = {
