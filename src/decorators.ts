@@ -1,11 +1,11 @@
-import { useRxReducer, useRxState } from '@azlabsjs/rx-hooks';
-import { Observable } from 'rxjs';
+import { useRxReducer, useRxState } from "@azlabsjs/rx-hooks";
+import { type Observable } from "rxjs";
 import {
-  DispatchType,
-  ReducerComponentType,
-  SetStateType,
-  StateComponentType,
-} from './types';
+  type DispatchType,
+  type ReducerComponentType,
+  type SetStateType,
+  type StateComponentType
+} from "./types";
 
 /**
  * Creates a component type providing useRxState(...)  implementation
@@ -15,22 +15,13 @@ import {
  * @param _default
  */
 export function State<TState>(_default: TState) {
+  const [state, setState] = useRxState(_default);
   return <T extends new (...args: any[]) => StateComponentType<TState>>(
     constructor: T
   ) => {
     class DecoratedClass extends constructor {
-      public override readonly state$!: Observable<TState>;
-      public override readonly setState$!: SetStateType<TState>;
-
-      /**
-       * Creates class instance with required arguments
-       */
-      constructor(...args: any[]) {
-        super(...args);
-        const [state, setState] = useRxState(_default);
-        this.state$ = state;
-        this.setState$ = setState;
-      }
+      public override readonly state$: Observable<TState> = state;
+      public override readonly setState$: SetStateType<TState> = setState;
     }
     return DecoratedClass;
   };
@@ -46,24 +37,15 @@ export function Reducer<TState, ActionType = any>(
   initial: TState,
   _init?: (_initial: unknown) => TState
 ) {
+  const [state, disptach] = useRxReducer(reducer, initial, _init);
   return <
     T extends new (...args: any[]) => ReducerComponentType<TState, ActionType>
   >(
     constructor: T
   ) => {
     class DecoratedClass extends constructor {
-      public override readonly state$!: Observable<TState>;
-      public override readonly dispatch$!: DispatchType<ActionType>;
-
-      /**
-       * Creates class instance with required arguments
-       */
-      constructor(...args: any[]) {
-        super(...args);
-        const [state, disptach] = useRxReducer(reducer, initial, _init);
-        this.state$ = state;
-        this.dispatch$ = disptach;
-      }
+      public override readonly state$: Observable<TState> = state;
+      public override readonly dispatch$: DispatchType<ActionType> = disptach;
     }
     return DecoratedClass;
   };
