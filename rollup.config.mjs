@@ -1,5 +1,6 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
+import copy from 'rollup-plugin-copy';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import terser from '@rollup/plugin-terser';
@@ -46,7 +47,24 @@ export default {
         }),
         babel({babelHelpers: 'bundled'}),
         terser(),
-
+        copy({
+            targets: [
+                // TypeScript requires 2 distinct files for ESM and CJS types. See:
+                // https://devblogs.microsoft.com/typescript/announcing-typescript-4-7/
+                // https://github.com/gxmari007/vite-plugin-eslint/pull/60
+                // Copy for ESM types is made in CJS bundle to ensure the declaration file generated in
+                // the previous bundle exists.
+                {
+                    src: "dist/types/index.d.ts",
+                    dest: "dist/types/",
+                    rename: "index.d.mts",
+                },
+            ],
+            verbose: true,
+            copyOnce: true,
+            copySync: true,
+            hook: 'writeBundle'
+        })
     ],
     external: Object.keys(globals),
 };
