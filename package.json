@@ -85,7 +85,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/azlabsjs/rx-hook-decorators"
+    "url": "git+https://github.com/azlabsjs/rx-hook-decorators.git"
   },
   "dependencies": {
     "eslint-config-love": "^47.0.0"
